@@ -1,0 +1,69 @@
+using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Threading;
+
+namespace simpletest
+{
+    class Simpletest
+    {
+        static void Main(string[] args)
+        {
+        }
+        [TestFixture]
+        public class Logintest
+        {
+            IWebDriver driver = new ChromeDriver();
+
+            [SetUp]
+            public void Init()
+            {
+                driver.Navigate().GoToUrl("http://idmitriev.org/qa.aspx");
+            }
+
+            [OneTimeTearDown]
+            public void ExitTest()
+            {
+                driver.Quit();
+            }
+
+            [Test]
+            public void LoginTestValid()
+            {
+                IWebElement elementlogin = driver.FindElement(By.Id("ContentPlaceHolder1_LoginBox"));
+                elementlogin.SendKeys("User");
+
+                IWebElement elementPass = driver.FindElement(By.Id("ContentPlaceHolder1_PassBox"));
+                elementPass.SendKeys("Pass");
+
+                IWebElement btnlogin = driver.FindElement(By.Id("ContentPlaceHolder1_ButtonLogin"));
+                btnlogin.Click();
+
+                IWebElement loginmessage = driver.FindElement(By.Id("ContentPlaceHolder1_Label1"));
+
+                Assert.AreEqual(loginmessage.Text, "Success Login");
+
+                Thread.Sleep(2000);
+            }
+
+            [Test]
+            public void LoginTestInValid()
+            {
+                IWebElement elementlogin = driver.FindElement(By.Id("ContentPlaceHolder1_LoginBox"));
+                elementlogin.SendKeys("User111");
+
+                IWebElement elementPass = driver.FindElement(By.Id("ContentPlaceHolder1_PassBox"));
+                elementPass.SendKeys("Pass111");
+
+                IWebElement btnlogin = driver.FindElement(By.Id("ContentPlaceHolder1_ButtonLogin"));
+                btnlogin.Click();
+
+                IWebElement loginmessage = driver.FindElement(By.Id("ContentPlaceHolder1_Label1"));
+
+                Assert.AreEqual(loginmessage.Text, "Success Denied");
+
+                Thread.Sleep(2000);
+            }
+        }
+    }
+}
