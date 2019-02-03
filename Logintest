@@ -41,7 +41,7 @@ namespace simpletest
 
                 IWebElement loginmessage = driver.FindElement(By.Id("ContentPlaceHolder1_Label1"));
 
-                Assert.AreEqual(loginmessage.Text, "Success Login");
+                Assert.AreEqual(loginmessage.Text, "Login Success");
 
                 Thread.Sleep(2000);
             }
@@ -60,7 +60,7 @@ namespace simpletest
 
                 IWebElement loginmessage = driver.FindElement(By.Id("ContentPlaceHolder1_Label1"));
 
-                Assert.AreEqual(loginmessage.Text, "Success Denied");
+                Assert.AreEqual(loginmessage.Text, "Login Denied");
 
                 Thread.Sleep(2000);
             }
